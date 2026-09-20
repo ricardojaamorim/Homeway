@@ -1,0 +1,128 @@
+<html>
+<head>
+<title>ReviewClass.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #7a7e85;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ReviewClass.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+
+<span class="s0">/**</span>
+ <span class="s0">* Class of the service reviews.</span>
+ <span class="s0">*/</span>
+<span class="s3">class </span><span class="s2">ReviewClass </span><span class="s3">implements </span><span class="s2">Review </span><span class="s4">{ </span><span class="s5">//package private.</span>
+
+    <span class="s3">private static final long </span><span class="s2">serialVersionUID </span><span class="s4">= </span><span class="s6">1L</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Rating (number of stars) of the review.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final int </span><span class="s2">stars</span><span class="s4">;</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Description of the review.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final </span><span class="s2">String description</span><span class="s4">;</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor of the ReviewClass.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">stars Rating (number of stars) of the review.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">description Description of the review.</span>
+     <span class="s0">*/</span>
+    <span class="s3">public </span><span class="s2">ReviewClass</span><span class="s4">(</span><span class="s3">int </span><span class="s2">stars</span><span class="s4">, </span><span class="s2">String description</span><span class="s4">){</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">stars </span><span class="s4">= </span><span class="s2">stars</span><span class="s4">;</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">description </span><span class="s4">= </span><span class="s2">EMPTY_SPACE </span><span class="s4">+ </span><span class="s2">description</span><span class="s4">.</span><span class="s2">toUpperCase</span><span class="s4">() + </span><span class="s2">EMPTY_SPACE</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Creates the lps array used in KmpSearch.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">pattern Tag.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the lps array.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private static int</span><span class="s4">[] </span><span class="s2">LPS</span><span class="s4">(</span><span class="s3">char</span><span class="s4">[] </span><span class="s2">pattern</span><span class="s4">) {</span>
+        <span class="s3">int </span><span class="s2">m </span><span class="s4">= </span><span class="s2">pattern</span><span class="s4">.</span><span class="s2">length</span><span class="s4">;</span>
+        <span class="s3">int</span><span class="s4">[] </span><span class="s2">lps </span><span class="s4">= </span><span class="s3">new int</span><span class="s4">[</span><span class="s2">m</span><span class="s4">];</span>
+
+        <span class="s3">int </span><span class="s2">i </span><span class="s4">= </span><span class="s6">1</span><span class="s4">;</span>
+        <span class="s3">int </span><span class="s2">j </span><span class="s4">= </span><span class="s6">0</span><span class="s4">;</span>
+        <span class="s3">while</span><span class="s4">(</span><span class="s2">i </span><span class="s4">&lt; </span><span class="s2">m</span><span class="s4">){</span>
+          <span class="s3">if</span><span class="s4">(</span><span class="s2">pattern</span><span class="s4">[</span><span class="s2">i</span><span class="s4">] == </span><span class="s2">pattern</span><span class="s4">[</span><span class="s2">j</span><span class="s4">]) {</span>
+              <span class="s2">j</span><span class="s4">++;</span>
+              <span class="s2">lps</span><span class="s4">[</span><span class="s2">i</span><span class="s4">] = </span><span class="s2">j</span><span class="s4">;</span>
+              <span class="s2">i</span><span class="s4">++;</span>
+          <span class="s4">}</span>
+          <span class="s3">else</span><span class="s4">{</span>
+              <span class="s3">if</span><span class="s4">(</span><span class="s2">j </span><span class="s4">!= </span><span class="s6">0</span><span class="s4">)</span>
+                  <span class="s2">j </span><span class="s4">= </span><span class="s2">lps</span><span class="s4">[</span><span class="s2">j </span><span class="s4">- </span><span class="s6">1</span><span class="s4">];</span>
+              <span class="s3">else</span>
+                  <span class="s2">i</span><span class="s4">++;</span>
+          <span class="s4">}</span>
+        <span class="s4">}</span>
+        <span class="s3">return </span><span class="s2">lps</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public boolean </span><span class="s2">kmpSearch</span><span class="s4">(</span><span class="s3">char</span><span class="s4">[] </span><span class="s2">pattern</span><span class="s4">) {</span>
+        <span class="s3">char</span><span class="s4">[] </span><span class="s2">text </span><span class="s4">= </span><span class="s2">description</span><span class="s4">.</span><span class="s2">toCharArray</span><span class="s4">();</span>
+        <span class="s3">int </span><span class="s2">n </span><span class="s4">= </span><span class="s2">text</span><span class="s4">.</span><span class="s2">length</span><span class="s4">;</span>
+        <span class="s3">int </span><span class="s2">m </span><span class="s4">= </span><span class="s2">pattern</span><span class="s4">.</span><span class="s2">length</span><span class="s4">;</span>
+        <span class="s3">int</span><span class="s4">[] </span><span class="s2">lps </span><span class="s4">= </span><span class="s2">LPS</span><span class="s4">(</span><span class="s2">pattern</span><span class="s4">);</span>
+        <span class="s3">int </span><span class="s2">i </span><span class="s4">= </span><span class="s6">0</span><span class="s4">, </span><span class="s2">j </span><span class="s4">= </span><span class="s6">0</span><span class="s4">;</span>
+        <span class="s3">while </span><span class="s4">(</span><span class="s2">i </span><span class="s4">&lt; </span><span class="s2">n</span><span class="s4">) {</span>
+            <span class="s3">if </span><span class="s4">(</span><span class="s2">pattern</span><span class="s4">[</span><span class="s2">j</span><span class="s4">] == </span><span class="s2">text</span><span class="s4">[</span><span class="s2">i</span><span class="s4">]) {</span>
+                <span class="s2">i</span><span class="s4">++;</span>
+                <span class="s2">j</span><span class="s4">++;</span>
+            <span class="s4">}</span>
+            <span class="s3">if </span><span class="s4">(</span><span class="s2">j </span><span class="s4">== </span><span class="s2">m</span><span class="s4">) </span><span class="s5">//found</span>
+                <span class="s3">return true</span><span class="s4">;</span>
+            <span class="s3">if </span><span class="s4">(</span><span class="s2">i </span><span class="s4">&lt; </span><span class="s2">n </span><span class="s4">&amp;&amp; </span><span class="s2">pattern</span><span class="s4">[</span><span class="s2">j</span><span class="s4">] != </span><span class="s2">text</span><span class="s4">[</span><span class="s2">i</span><span class="s4">]) {</span>
+                <span class="s3">if </span><span class="s4">(</span><span class="s2">j </span><span class="s4">!= </span><span class="s6">0</span><span class="s4">)</span>
+                    <span class="s2">j </span><span class="s4">= </span><span class="s2">lps</span><span class="s4">[</span><span class="s2">j </span><span class="s4">- </span><span class="s6">1</span><span class="s4">]; </span><span class="s5">//reuse suffix of P[0..j-1]</span>
+                <span class="s3">else</span>
+                    <span class="s2">i</span><span class="s4">++;</span>
+            <span class="s4">}</span>
+        <span class="s4">}</span>
+        <span class="s3">return false</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public int </span><span class="s2">getStars</span><span class="s4">() {</span>
+        <span class="s3">return </span><span class="s2">stars</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public </span><span class="s2">String getDescription</span><span class="s4">() {</span>
+        <span class="s3">return </span><span class="s2">description</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

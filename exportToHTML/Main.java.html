@@ -1,0 +1,667 @@
+<html>
+<head>
+<title>Main.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #5f826b; font-style: italic;}
+.s2 { color: #67a37c; font-style: italic;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #6aab73;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Main.java</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">/**</span>
+ <span class="s1">* </span><span class="s2">@author </span><span class="s1">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s1">* </span><span class="s2">@author </span><span class="s1">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s1">*/</span>
+
+<span class="s3">import </span><span class="s0">App</span><span class="s4">.</span><span class="s0">App</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">App</span><span class="s4">.</span><span class="s0">AppClass</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">Errors</span><span class="s4">.*;</span>
+<span class="s3">import </span><span class="s0">Services</span><span class="s4">.</span><span class="s0">ReadOnlyService</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">Students</span><span class="s4">.</span><span class="s0">ReadOnlyStudent</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">dataStructures</span><span class="s4">.</span><span class="s0">Iterator</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">dataStructures</span><span class="s4">.</span><span class="s0">TwoWayIterator</span><span class="s4">;</span>
+
+<span class="s3">import </span><span class="s0">java</span><span class="s4">.</span><span class="s0">io</span><span class="s4">.</span><span class="s0">IOException</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">java</span><span class="s4">.</span><span class="s0">util</span><span class="s4">.</span><span class="s0">Scanner</span><span class="s4">;</span>
+
+
+<span class="s3">public class </span><span class="s0">Main </span><span class="s4">{</span>
+
+    <span class="s1">/**</span>
+     <span class="s1">* Outputs.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static final </span><span class="s0">String UNKNOWN_COMMAND_MSG </span><span class="s4">=</span><span class="s5">&quot;Unknown command. Type help to see available commands.&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String BYE_MSG </span><span class="s4">=</span><span class="s5">&quot;Bye!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String BOUNDS_CREATED_MSG </span><span class="s4">=</span><span class="s5">&quot;%s created.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String AREA_ALREADY_EXISTS_MSG </span><span class="s4">=</span><span class="s5">&quot;Bounds already exists. Please load it!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_BOUNDS_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid bounds.&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SYSTEM_BOUNDS_NOT_DEFINED_MSG </span><span class="s4">=</span><span class="s5">&quot;System bounds not defined.&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SAVE_AREA_MSG </span><span class="s4">=</span><span class="s5">&quot;%s saved.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String BOUNDS_DOESNT_EXIST_MSG </span><span class="s4">=</span><span class="s5">&quot;Bounds %s does not exists.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String LOAD_AREA_MSG </span><span class="s4">=</span><span class="s5">&quot;%s loaded.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SERVICE_ADDED_MSG </span><span class="s4">=</span><span class="s5">&quot;%s %s added.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_SERVICE_TYPE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid service type!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_LOCATION_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid location!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_EATING_PRICE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid menu price!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_LODGING_PRICE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid room price!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_LEISURE_PRICE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid ticket price!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_DISCOUNT_PRICE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid discount price!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_CAPACITY_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid capacity!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SERVICE_ALREADY_EXISTS_MSG </span><span class="s4">=</span><span class="s5">&quot;%s already exists!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SERVICES_LIST_MSG </span><span class="s4">=</span><span class="s5">&quot;%s: %s (%d, %d).</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_SERVICES_YET_MSG </span><span class="s4">=</span><span class="s5">&quot;No services yet!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_ADDED_MSG </span><span class="s4">=</span><span class="s5">&quot;%s added.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_STUDENT_TYPE_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid student type!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String LODGING_DOESNT_EXIST_MSG </span><span class="s4">=</span><span class="s5">&quot;lodging %s does not exist!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String LODGING_IS_FULL_MSG </span><span class="s4">=</span><span class="s5">&quot;lodging %s is full!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_ALREADY_EXISTS_MSG </span><span class="s4">=</span><span class="s5">&quot;%s already exists!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_LEFT_MSG </span><span class="s4">=</span><span class="s5">&quot;%s has left.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String DOESNT_EXIST_MSG </span><span class="s4">=</span><span class="s5">&quot;%s does not exist!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENTS_LIST_MSG </span><span class="s4">=</span><span class="s5">&quot;%s: %s at %s.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_STUDENTS_YET_MSG </span><span class="s4">=</span><span class="s5">&quot;No students yet!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_STUDENTS_FROM_COUNTRY_MSG </span><span class="s4">=</span><span class="s5">&quot;No students from %s!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_CHANGE_LOCATION_MSG </span><span class="s4">=</span><span class="s5">&quot;%s is now at %s.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String DISTRACTED_STUDENT_CHANGE_LOCATION_MSG </span><span class="s4">=</span><span class="s5">&quot;%s is now at %s. %s is distracted!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String UnKNOWN_LOCATION_MSG </span><span class="s4">=</span><span class="s5">&quot;Unknown %s!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_GO_LOCATION_MSG </span><span class="s4">=</span><span class="s5">&quot;%s is not a valid service!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String ALREADY_THERE_MSG </span><span class="s4">=</span><span class="s5">&quot;Already there!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String EATING_IS_FULL_MSG </span><span class="s4">=</span><span class="s5">&quot;eating %s is full!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String CHANGE_STUDENT_HOME_MSG </span><span class="s4">=</span><span class="s5">&quot;lodging %s is now %s's home. %s is at home.</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String MOVING_TO_SAME_HOME_MSG </span><span class="s4">=</span><span class="s5">&quot;That is %s's home!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_THRIFTY_MOVE_MSG </span><span class="s4">=</span><span class="s5">&quot;Move is not acceptable for %s!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String USERS_COMMAND_MSG </span><span class="s4">=</span><span class="s5">&quot;%s: %s</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_ORDER_TYPE_MSG </span><span class="s4">=</span><span class="s5">&quot;This order does not exists!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String SERVICE_DOESNT_CONTROL_ENTRY_MSG </span><span class="s4">=</span><span class="s5">&quot;%s does not control student entry and exit!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String EMPTY_SERVICE_MSG </span><span class="s4">=</span><span class="s5">&quot;No students on %s!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String LOCATE_STUDENT_MSG </span><span class="s4">=</span><span class="s5">&quot;%s is at %s %s (%d, %d).</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_IS_THRIFTY_MSG </span><span class="s4">=</span><span class="s5">&quot;%s is thrifty!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String STUDENT_DIDNT_VISIT_LOCATIONS_MSG </span><span class="s4">=</span><span class="s5">&quot;%s has not visited any locations!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String EVALUATION_REGISTERED_MSG </span><span class="s4">=</span><span class="s5">&quot;Your evaluation has been registered!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_EVALUATION_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid evaluation!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_SERVICES_IN_SYSTEM_MSG </span><span class="s4">=</span><span class="s5">&quot;No services in the system.&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String RANKING_HEADLINE_MSG </span><span class="s4">=</span><span class="s5">&quot;Services sorted in descending order&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String RANKING_MSG </span><span class="s4">=</span><span class="s5">&quot;%s: %d</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_SERVICES_WHIT_THIS_TAG_MSG </span><span class="s4">=</span><span class="s5">&quot;There are no services with this tag!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String LIST_TAG_SERVICES_MSG </span><span class="s4">=</span><span class="s5">&quot;%s %s</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String RANKED_SERVICES_HEADER_MSG </span><span class="s4">=</span><span class="s5">&quot;%s services closer with %d average</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String INVALID_STARS_MSG </span><span class="s4">=</span><span class="s5">&quot;Invalid stars!&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_TYPE_SERVICES_MSG </span><span class="s4">=</span><span class="s5">&quot;No %s services!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+    <span class="s3">private static final </span><span class="s0">String NO_TYPE_SERVICES_WITH_AVERAGE_MSG </span><span class="s4">=</span><span class="s5">&quot;No %s services with average!</span><span class="s3">\n</span><span class="s5">&quot;</span><span class="s4">;</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns true if the bounds of the system are defined.</span>
+     <span class="s1">* If the bounds are not defined prints a message.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">true if the bounds of the system are defined,false otherwise.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static boolean </span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s3">if</span><span class="s4">(!</span><span class="s0">app</span><span class="s4">.</span><span class="s0">boundsAreDefined</span><span class="s4">() ) {</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">SYSTEM_BOUNDS_NOT_DEFINED_MSG</span><span class="s4">);</span>
+            <span class="s3">return false</span><span class="s4">;</span>
+        <span class="s4">}</span>
+        <span class="s3">return true</span><span class="s4">;</span>
+
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Defines the geographic bounding rectangle of the system.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processBounds</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s3">long</span><span class="s4">[] </span><span class="s0">topLeft </span><span class="s4">= {</span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">(),</span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">()}; </span><span class="s6">//1º cell is the latitude and the 2º is the longitude.</span>
+       <span class="s3">long</span><span class="s4">[] </span><span class="s0">bottomRight </span><span class="s4">= {</span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">(),</span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">()};</span>
+       <span class="s0">String areaName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">try</span><span class="s4">{</span>
+           <span class="s0">app</span><span class="s4">.</span><span class="s0">addBounds</span><span class="s4">(</span><span class="s0">areaName</span><span class="s4">,</span><span class="s0">topLeft</span><span class="s4">,</span><span class="s0">bottomRight</span><span class="s4">);</span>
+           <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">BOUNDS_CREATED_MSG</span><span class="s4">,</span><span class="s0">areaName</span><span class="s4">);</span>
+       <span class="s4">}</span>
+       <span class="s3">catch</span><span class="s4">(</span><span class="s0">AreaAlreadyExists e</span><span class="s4">){</span>
+           <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">AREA_ALREADY_EXISTS_MSG</span><span class="s4">);</span>
+       <span class="s4">}</span>
+        <span class="s3">catch</span><span class="s4">(</span><span class="s0">InvalidArea e</span><span class="s4">){</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_BOUNDS_MSG</span><span class="s4">);</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Saves the current geographic bounding rectangle to a text file.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processSave</span><span class="s4">(</span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">app</span><span class="s4">.</span><span class="s0">saveArea</span><span class="s4">();</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">SAVE_AREA_MSG</span><span class="s4">, </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getAreaName</span><span class="s4">());</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">IOException e</span><span class="s4">) {</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Load a geographic bounding rectangle of the system.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">the class with the loaded area</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static </span><span class="s0">App processLoad</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">, </span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s0">String areaName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">App area </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">loadArea</span><span class="s4">(</span><span class="s0">areaName</span><span class="s4">);</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LOAD_AREA_MSG</span><span class="s4">, </span><span class="s0">area</span><span class="s4">.</span><span class="s0">getAreaName</span><span class="s4">());</span>
+                <span class="s3">return </span><span class="s0">area</span><span class="s4">;</span>
+        <span class="s4">}</span>
+        <span class="s3">catch</span><span class="s4">(</span><span class="s0">BoundsDoesntExist e</span><span class="s4">){</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">BOUNDS_DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">areaName</span><span class="s4">);</span>
+        <span class="s4">}</span>
+        <span class="s3">catch</span><span class="s4">(</span><span class="s0">IOException e</span><span class="s4">){</span>
+        <span class="s4">}</span>
+        <span class="s3">catch </span><span class="s4">(</span><span class="s0">ClassNotFoundException e</span><span class="s4">){</span>
+        <span class="s4">}</span>
+        <span class="s3">return </span><span class="s0">app</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Adds a new service of a given type to the current geographic area.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processService</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String type </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">next</span><span class="s4">().</span><span class="s0">toLowerCase</span><span class="s4">();</span>
+       <span class="s3">long </span><span class="s0">latitude </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">();</span>
+       <span class="s3">long </span><span class="s0">longitude  </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLong</span><span class="s4">();</span>
+       <span class="s3">int </span><span class="s0">price </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextInt</span><span class="s4">();</span>
+       <span class="s3">int </span><span class="s0">value </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextInt</span><span class="s4">();</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">app</span><span class="s4">.</span><span class="s0">addService</span><span class="s4">(</span><span class="s0">type</span><span class="s4">,</span><span class="s0">latitude</span><span class="s4">,</span><span class="s0">longitude</span><span class="s4">,</span><span class="s0">price</span><span class="s4">,</span><span class="s0">value</span><span class="s4">,</span><span class="s0">name</span><span class="s4">);</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">SERVICE_ADDED_MSG</span><span class="s4">, </span><span class="s0">type</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidServiceType e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_SERVICE_TYPE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidLocation e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_LOCATION_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidEatingPrice e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_EATING_PRICE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidLodgingPrice e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_LODGING_PRICE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidLeisurePrice e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_LEISURE_PRICE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidDiscountPrice e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_DISCOUNT_PRICE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidCapacity e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_CAPACITY_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceAlreadyExists e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">SERVICE_ALREADY_EXISTS_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Displays the list of services in the system.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processServices</span><span class="s4">(</span><span class="s0">App app</span><span class="s4">) {</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) ) {</span>
+            <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getServicesIterator</span><span class="s4">();</span>
+            <span class="s3">if </span><span class="s4">(!</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">NO_SERVICES_YET_MSG</span><span class="s4">);</span>
+            <span class="s3">else </span><span class="s4">{</span>
+                <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">()) {</span>
+                    <span class="s0">ReadOnlyService service </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+                    <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">SERVICES_LIST_MSG</span><span class="s4">, </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">(),</span>
+                            <span class="s0">service</span><span class="s4">.</span><span class="s0">getLatitude</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getLongitude</span><span class="s4">());</span>
+                <span class="s4">}</span>
+            <span class="s4">}</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Adds a student to the system.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processStudent</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s0">String type </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">().</span><span class="s0">toLowerCase</span><span class="s4">();</span>
+        <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s0">String country </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s0">String homeName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">app</span><span class="s4">.</span><span class="s0">addStudent</span><span class="s4">(</span><span class="s0">type</span><span class="s4">, </span><span class="s0">name</span><span class="s4">, </span><span class="s0">country</span><span class="s4">, </span><span class="s0">homeName</span><span class="s4">);</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_ADDED_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidStudentType e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_STUDENT_TYPE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceDoesntExist e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LODGING_DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">homeName</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceAlreadyFull e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LODGING_IS_FULL_MSG</span><span class="s4">, </span><span class="s0">homeName</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentAlreadyExists e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_ALREADY_EXISTS_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Lists all the students or those of a given country.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processStudents</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+      <span class="s0">String country </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+      <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) ) {</span>
+          <span class="s3">try </span><span class="s4">{</span>
+              <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getStudentsIterator</span><span class="s4">(</span><span class="s0">country</span><span class="s4">);</span>
+
+              <span class="s3">if </span><span class="s4">(!</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+                  <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">NO_STUDENTS_YET_MSG</span><span class="s4">);</span>
+              <span class="s3">else</span>
+                  <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">()) {</span>
+                      <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+                      <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENTS_LIST_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(),</span>
+                              <span class="s0">student</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">(), </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getLocation</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">());</span>
+                  <span class="s4">}</span>
+          <span class="s4">}</span>
+          <span class="s3">catch</span><span class="s4">(</span><span class="s0">NoStudentsFromCountry e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">NO_STUDENTS_FROM_COUNTRY_MSG</span><span class="s4">, </span><span class="s0">country</span><span class="s4">);</span>
+          <span class="s4">}</span>
+      <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Removes a student from the system.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processLeave</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s0">String studentName </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">removeStudent</span><span class="s4">(</span><span class="s0">name</span><span class="s4">);</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_LEFT_MSG</span><span class="s4">,</span><span class="s0">studentName</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Changes the location of a student to a eating service, or leisure service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processGo</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String studentName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s0">String destinationName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s3">boolean </span><span class="s0">isDistracted </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">changeStudentLocation</span><span class="s4">(</span><span class="s0">studentName</span><span class="s4">, </span><span class="s0">destinationName</span><span class="s4">);</span>
+               <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getStudent</span><span class="s4">(</span><span class="s0">studentName</span><span class="s4">); </span><span class="s6">//necessary to get the student name</span>
+               <span class="s3">if</span><span class="s4">(</span><span class="s0">isDistracted</span><span class="s4">)                                       </span><span class="s6">//and location registered in the system.</span>
+                   <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DISTRACTED_STUDENT_CHANGE_LOCATION_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(),</span>
+                           <span class="s0">student</span><span class="s4">.</span><span class="s0">getLocation</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">(),</span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">());</span>
+               <span class="s3">else</span>
+                   <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_CHANGE_LOCATION_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(),</span>
+                           <span class="s0">student</span><span class="s4">.</span><span class="s0">getLocation</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">UnKNOWN_LOCATION_MSG</span><span class="s4">, </span><span class="s0">destinationName</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">studentName</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidLocation e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">INVALID_GO_LOCATION_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">MovingToSameLocation e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">ALREADY_THERE_MSG</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceAlreadyFull e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">EATING_IS_FULL_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Changes the home of a student if that is acceptable.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processMove</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s0">String lodgingName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">changeStudentHome</span><span class="s4">(</span><span class="s0">name</span><span class="s4">, </span><span class="s0">lodgingName</span><span class="s4">);</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">CHANGE_STUDENT_HOME_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getHome</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">(),</span>
+                                                    <span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">() );</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LODGING_DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">lodgingName</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">MovingToSameHouse e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">MOVING_TO_SAME_HOME_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceAlreadyFull e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LODGING_IS_FULL_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidThriftyMove e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">INVALID_THRIFTY_MOVE_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Iterates the users in the service from newest to oldest based on insertion order into service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">it Iterator that will iterate.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">iterateUsersInAscendingOrder</span><span class="s4">(</span><span class="s0">TwoWayIterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s0">it</span><span class="s4">){</span>
+        <span class="s0">it</span><span class="s4">.</span><span class="s0">fullForward</span><span class="s4">();</span>
+        <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasPrevious</span><span class="s4">()) {</span>
+            <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">previous</span><span class="s4">();</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">USERS_COMMAND_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">());</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Iterates the users in the service from oldest to newest based on insertion order.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">it Iterator that will iterate.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">iterateUsersInDescendingOrder</span><span class="s4">(</span><span class="s0">TwoWayIterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s0">it</span><span class="s4">) {</span>
+        <span class="s0">it</span><span class="s4">.</span><span class="s0">rewind</span><span class="s4">();</span>
+        <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">()) {</span>
+            <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">USERS_COMMAND_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">());</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Lists all students currently in a given eating or lodging service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processUsers</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">) {</span>
+        <span class="s0">String orderSymbol </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+        <span class="s0">String serviceName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">TwoWayIterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">=</span>
+                        <span class="s0">app</span><span class="s4">.</span><span class="s0">getStudentsInServiceIterator</span><span class="s4">(</span><span class="s0">serviceName</span><span class="s4">, </span><span class="s0">orderSymbol</span><span class="s4">);</span>
+                <span class="s3">if </span><span class="s4">(!</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+                    <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">EMPTY_SERVICE_MSG</span><span class="s4">, </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getService</span><span class="s4">(</span><span class="s0">serviceName</span><span class="s4">).</span><span class="s0">getName</span><span class="s4">());</span>
+                <span class="s3">else </span><span class="s4">{</span>
+                    <span class="s3">if </span><span class="s4">(</span><span class="s0">app</span><span class="s4">.</span><span class="s0">isAscendingOrder</span><span class="s4">(</span><span class="s0">orderSymbol</span><span class="s4">))</span>
+                        <span class="s0">iterateUsersInAscendingOrder</span><span class="s4">(</span><span class="s0">it</span><span class="s4">);</span>
+                    <span class="s3">else</span>
+                        <span class="s0">iterateUsersInDescendingOrder</span><span class="s4">(</span><span class="s0">it</span><span class="s4">);</span>
+                <span class="s4">}</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidOrderType e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_ORDER_TYPE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceDoesntExist e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">serviceName</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceWithNoEntryControl e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">SERVICE_DOESNT_CONTROL_ENTRY_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Locates a student.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processWhere</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s0">ReadOnlyStudent student </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">whereCommand</span><span class="s4">(</span><span class="s0">name</span><span class="s4">);</span>
+               <span class="s0">ReadOnlyService service </span><span class="s4">= </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getLocation</span><span class="s4">();</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LOCATE_STUDENT_MSG</span><span class="s4">, </span><span class="s0">student</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">(),</span>
+                       <span class="s0">service</span><span class="s4">.</span><span class="s0">getLatitude</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getLongitude</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Lists the locations visited and stored by one student.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processVisited</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getVisitedIterator</span><span class="s4">(</span><span class="s0">name</span><span class="s4">);</span>
+               <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+                   <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentIsThrifty e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_IS_THRIFTY_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">NoPlacesVisited e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">STUDENT_DIDNT_VISIT_LOCATIONS_MSG</span><span class="s4">, </span><span class="s0">e</span><span class="s4">.</span><span class="s0">getMessage</span><span class="s4">());</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Evaluates a service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processStar</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s3">int </span><span class="s0">stars </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextInt</span><span class="s4">();</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s0">String description </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">app</span><span class="s4">.</span><span class="s0">evaluateService</span><span class="s4">(</span><span class="s0">stars</span><span class="s4">, </span><span class="s0">name</span><span class="s4">, </span><span class="s0">description</span><span class="s4">);</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">EVALUATION_REGISTERED_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidRating e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_EVALUATION_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">ServiceDoesntExist e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Lists all services ordered by star.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processRanking</span><span class="s4">(</span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getRankingIterator</span><span class="s4">();</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">RANKING_HEADLINE_MSG</span><span class="s4">);</span>
+                <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">()) {</span>
+                    <span class="s0">ReadOnlyService service </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+                    <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">RANKING_MSG</span><span class="s4">, </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">(), </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getAverageRating</span><span class="s4">());</span>
+                <span class="s4">}</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">NoServicesYet e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">NO_SERVICES_IN_SYSTEM_MSG</span><span class="s4">);</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Lists the service(s) of the indicated type with the given score that are closer to</span>
+     <span class="s1">* the student location.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processRanked</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String type </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+       <span class="s3">int </span><span class="s0">stars </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextInt</span><span class="s4">();</span>
+       <span class="s0">String studentName </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getRankedIterator</span><span class="s4">(</span><span class="s0">type</span><span class="s4">, </span><span class="s0">stars</span><span class="s4">, </span><span class="s0">studentName</span><span class="s4">);</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">RANKED_SERVICES_HEADER_MSG</span><span class="s4">, </span><span class="s0">type</span><span class="s4">, </span><span class="s0">stars</span><span class="s4">);</span>
+                <span class="s3">while</span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+                    <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">().</span><span class="s0">getName</span><span class="s4">());</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidRating e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_STARS_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">studentName</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidServiceType e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_SERVICE_TYPE_MSG</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">NoTypeServices e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">NO_TYPE_SERVICES_MSG</span><span class="s4">, </span><span class="s0">type</span><span class="s4">);</span>
+            <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">NoTypeServicesWithThatRating e</span><span class="s4">) {</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">NO_TYPE_SERVICES_WITH_AVERAGE_MSG</span><span class="s4">, </span><span class="s0">type</span><span class="s4">);</span>
+            <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* List all services that contains the specified tag in reviews.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processTag</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String tag </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) ) {</span>
+           <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">it </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">getServicesWithTagIterator</span><span class="s4">(</span><span class="s0">tag</span><span class="s4">);</span>
+           <span class="s3">if </span><span class="s4">(!</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">())</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">NO_SERVICES_WHIT_THIS_TAG_MSG</span><span class="s4">);</span>
+           <span class="s3">else </span><span class="s4">{</span>
+               <span class="s3">while </span><span class="s4">(</span><span class="s0">it</span><span class="s4">.</span><span class="s0">hasNext</span><span class="s4">()) {</span>
+                   <span class="s0">ReadOnlyService service </span><span class="s4">= </span><span class="s0">it</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+                   <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">LIST_TAG_SERVICES_MSG</span><span class="s4">, </span><span class="s0">service</span><span class="s4">.</span><span class="s0">getType</span><span class="s4">(),</span>
+                           <span class="s0">service</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">());</span>
+               <span class="s4">}</span>
+           <span class="s4">}</span>
+       <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Finds the most relevant service of a certain type, for a specific student.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">app Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processFind</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">,</span><span class="s0">App app</span><span class="s4">){</span>
+       <span class="s0">String name </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">nextLine</span><span class="s4">().</span><span class="s0">trim</span><span class="s4">();</span>
+       <span class="s0">String type </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">next</span><span class="s4">();</span>
+       <span class="s3">if</span><span class="s4">(</span><span class="s0">boundsAreDefined</span><span class="s4">(</span><span class="s0">app</span><span class="s4">) )</span>
+           <span class="s3">try </span><span class="s4">{</span>
+               <span class="s0">ReadOnlyService service </span><span class="s4">= </span><span class="s0">app</span><span class="s4">.</span><span class="s0">findMostRelevantService</span><span class="s4">(</span><span class="s0">name</span><span class="s4">, </span><span class="s0">type</span><span class="s4">);</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">service</span><span class="s4">.</span><span class="s0">getName</span><span class="s4">());</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">InvalidServiceType e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">INVALID_SERVICE_TYPE_MSG</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">StudentDoesntExist e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">DOESNT_EXIST_MSG</span><span class="s4">, </span><span class="s0">name</span><span class="s4">);</span>
+           <span class="s4">} </span><span class="s3">catch </span><span class="s4">(</span><span class="s0">NoTypeServices e</span><span class="s4">) {</span>
+               <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">printf</span><span class="s4">(</span><span class="s0">NO_TYPE_SERVICES_MSG</span><span class="s4">, </span><span class="s0">type</span><span class="s4">);</span>
+           <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Prints a sequence of messages that describe every command.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processHelp</span><span class="s4">(){</span>
+      <span class="s3">for</span><span class="s4">(</span><span class="s0">Commands command </span><span class="s4">: </span><span class="s0">Commands</span><span class="s4">.</span><span class="s0">values</span><span class="s4">() ){</span>
+          <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">command</span><span class="s4">.</span><span class="s0">getDescription</span><span class="s4">() );</span>
+      <span class="s4">}</span>
+    <span class="s4">}</span>
+
+    <span class="s1">/**</span>
+     <span class="s1">* Process the command &quot;EXIT&quot;.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">processExit</span><span class="s4">(</span><span class="s0">App app</span><span class="s4">){</span>
+        <span class="s3">try </span><span class="s4">{</span>
+            <span class="s0">app</span><span class="s4">.</span><span class="s0">saveArea</span><span class="s4">();</span>
+            <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">BYE_MSG</span><span class="s4">);</span>
+        <span class="s4">}</span>
+        <span class="s3">catch </span><span class="s4">(</span><span class="s0">IOException e</span><span class="s4">) {</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Runs the app.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">in Scanner used to get the user input.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">systemApp Class that contains all the logic behind the operations.</span>
+     <span class="s1">*/</span>
+    <span class="s3">private static void </span><span class="s0">runApp</span><span class="s4">(</span><span class="s0">Scanner in</span><span class="s4">, </span><span class="s0">App systemApp</span><span class="s4">){</span>
+        <span class="s3">boolean </span><span class="s0">endApp </span><span class="s4">= </span><span class="s3">false</span><span class="s4">;</span>
+        <span class="s0">App app </span><span class="s4">= </span><span class="s0">systemApp</span><span class="s4">;</span>
+        <span class="s3">while</span><span class="s4">(!</span><span class="s0">endApp</span><span class="s4">){</span>
+            <span class="s0">String command </span><span class="s4">= </span><span class="s0">in</span><span class="s4">.</span><span class="s0">next</span><span class="s4">().</span><span class="s0">toUpperCase</span><span class="s4">();</span>
+            <span class="s3">try </span><span class="s4">{</span>
+                 <span class="s3">switch </span><span class="s4">(</span><span class="s0">Commands</span><span class="s4">.</span><span class="s0">valueOf</span><span class="s4">(</span><span class="s0">command</span><span class="s4">)) {</span>
+                    <span class="s3">case </span><span class="s0">BOUNDS -&gt; processBounds</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">SAVE -&gt; processSave</span><span class="s4">(</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">LOAD -&gt; app </span><span class="s4">= </span><span class="s0">processLoad</span><span class="s4">(</span><span class="s0">in</span><span class="s4">, </span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">SERVICE -&gt; processService</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">SERVICES -&gt; processServices</span><span class="s4">(</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">STUDENT -&gt; processStudent</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">STUDENTS -&gt; processStudents</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">LEAVE -&gt; processLeave</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">GO -&gt; processGo</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">MOVE -&gt; processMove</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">USERS -&gt; processUsers</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">STAR -&gt; processStar</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">WHERE -&gt; processWhere</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">VISITED -&gt; processVisited</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">RANKING -&gt; processRanking</span><span class="s4">(</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">RANKED -&gt; processRanked</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">TAG -&gt; processTag</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">FIND -&gt; processFind</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">app</span><span class="s4">);</span>
+                    <span class="s3">case </span><span class="s0">HELP -&gt; processHelp</span><span class="s4">();</span>
+                    <span class="s3">case </span><span class="s0">EXIT -&gt; </span><span class="s4">{</span><span class="s0">processExit</span><span class="s4">(</span><span class="s0">app</span><span class="s4">);</span>
+                                  <span class="s0">endApp </span><span class="s4">= </span><span class="s3">true</span><span class="s4">;}</span>
+                <span class="s4">}</span>
+            <span class="s4">}</span><span class="s3">catch</span><span class="s4">(</span><span class="s0">IllegalArgumentException invalidCommand</span><span class="s4">){</span>
+                <span class="s0">System</span><span class="s4">.</span><span class="s0">out</span><span class="s4">.</span><span class="s0">println</span><span class="s4">(</span><span class="s0">UNKNOWN_COMMAND_MSG</span><span class="s4">);</span>
+            <span class="s4">}</span>
+        <span class="s4">}</span>
+    <span class="s4">}</span>
+
+
+    <span class="s3">public static void </span><span class="s0">main</span><span class="s4">(</span><span class="s0">String</span><span class="s4">[] </span><span class="s0">args</span><span class="s4">) {</span>
+        <span class="s0">Scanner in </span><span class="s4">= </span><span class="s3">new </span><span class="s0">Scanner</span><span class="s4">(</span><span class="s0">System</span><span class="s4">.</span><span class="s0">in</span><span class="s4">);</span>
+        <span class="s0">App systemApp </span><span class="s4">= </span><span class="s3">new </span><span class="s0">AppClass</span><span class="s4">();</span>
+        <span class="s0">runApp</span><span class="s4">(</span><span class="s0">in</span><span class="s4">,</span><span class="s0">systemApp</span><span class="s4">);</span>
+        <span class="s0">in</span><span class="s4">.</span><span class="s0">close</span><span class="s4">();</span>
+    <span class="s4">}</span>
+<span class="s4">}</span>
+
+
+</pre>
+</body>
+</html>

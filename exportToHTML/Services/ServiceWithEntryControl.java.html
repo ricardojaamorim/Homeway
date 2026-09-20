@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>ServiceWithEntryControl.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #7a7e85;}
+.s6 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ServiceWithEntryControl.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+<span class="s3">import </span><span class="s2">Errors</span><span class="s4">.</span><span class="s2">ServiceAlreadyFull</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s2">Students</span><span class="s4">.</span><span class="s2">ReadOnlyStudent</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s2">Students</span><span class="s4">.</span><span class="s2">Student</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s2">dataStructures</span><span class="s4">.</span><span class="s2">TwoWayIterator</span><span class="s4">;</span>
+
+
+<span class="s0">/**</span>
+ <span class="s0">* Interface of the services that control the students entry.</span>
+ <span class="s0">*/</span>
+<span class="s3">public interface </span><span class="s2">ServiceWithEntryControl </span><span class="s3">extends </span><span class="s2">Service</span><span class="s4">{ </span><span class="s5">//has to be public because AppStudentsClass needs access.</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constants.</span>
+     <span class="s0">*/</span>
+
+    <span class="s3">final int </span><span class="s2">OCCUPANTS_MAP_INITIAL_CAPACITY </span><span class="s4">= </span><span class="s6">30</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Throws an exception if the service is already full.</span>
+     <span class="s0">* </span><span class="s1">@throws </span><span class="s0">ServiceAlreadyFull Exception that happens when the service is already full.</span>
+     <span class="s0">*/</span>
+    <span class="s3">void </span><span class="s2">isFull</span><span class="s4">() </span><span class="s3">throws </span><span class="s2">ServiceAlreadyFull</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Adds an occupant to the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">student student that is now in the service,</span>
+     <span class="s0">*/</span>
+    <span class="s3">void </span><span class="s2">addOccupant</span><span class="s4">(</span><span class="s2">Student student</span><span class="s4">);</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Removes an occupant from the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">student Student that is leaving the service,</span>
+     <span class="s0">*/</span>
+    <span class="s3">void </span><span class="s2">removeOccupant</span><span class="s4">(</span><span class="s2">Student student</span><span class="s4">);</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns true if there's no students in the service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if there's no students in the service, false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">boolean </span><span class="s2">hasNoOccupants</span><span class="s4">();</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns the capacity of the service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the capacity of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">int </span><span class="s2">getCapacity</span><span class="s4">();</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns the number of students in the service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the number of students in the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">int </span><span class="s2">getOccupantsCount</span><span class="s4">();</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns a two-way iterator of the students in the service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">a two-way iterator of the students in the service.</span>
+     <span class="s0">*/</span>
+    <span class="s2">TwoWayIterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s2">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s2">getOccupantsIterator</span><span class="s4">();</span>
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

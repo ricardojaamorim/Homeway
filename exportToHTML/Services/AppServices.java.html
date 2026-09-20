@@ -1,0 +1,200 @@
+<html>
+<head>
+<title>AppServices.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #bcbec4;}
+.s1 { color: #5f826b; font-style: italic;}
+.s2 { color: #67a37c; font-style: italic;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+AppServices.java</font>
+</center></td></tr></table>
+<pre>
+<span class="s1">/**</span>
+ <span class="s1">* </span><span class="s2">@author </span><span class="s1">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s1">* </span><span class="s2">@author </span><span class="s1">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s1">*/</span>
+
+<span class="s3">package </span><span class="s0">Services</span><span class="s4">;</span>
+
+<span class="s3">import </span><span class="s0">Errors</span><span class="s4">.*;</span>
+<span class="s3">import </span><span class="s0">Students</span><span class="s4">.</span><span class="s0">ReadOnlyStudent</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">Students</span><span class="s4">.</span><span class="s0">Student</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">dataStructures</span><span class="s4">.</span><span class="s0">Iterator</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s0">dataStructures</span><span class="s4">.</span><span class="s0">TwoWayIterator</span><span class="s4">;</span>
+
+<span class="s3">import </span><span class="s0">java</span><span class="s4">.</span><span class="s0">io</span><span class="s4">.</span><span class="s0">Serializable</span><span class="s4">;</span>
+
+<span class="s3">public interface </span><span class="s0">AppServices </span><span class="s3">extends </span><span class="s0">Serializable </span><span class="s4">{</span>
+
+    <span class="s1">/**</span>
+     <span class="s1">* Constants.</span>
+     <span class="s1">*/</span>
+
+    <span class="s3">final int </span><span class="s0">MINIMUML_SERVICE_PRICE </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;</span>
+
+    <span class="s3">final int </span><span class="s0">MINIMUM_CAPACITY </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;</span>
+
+    <span class="s3">final int </span><span class="s0">MINIMUM_DISCOUNT </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;</span>
+
+    <span class="s3">final int </span><span class="s0">MAXIMUM_DISCOUNT </span><span class="s4">= </span><span class="s5">100</span><span class="s4">;</span>
+
+    <span class="s3">final int </span><span class="s0">ARRAYS_FIRST_INDEX </span><span class="s4">= </span><span class="s5">0</span><span class="s4">;     </span><span class="s6">//first index of an array.</span>
+
+    <span class="s3">final int </span><span class="s0">NUMBER_OF_RATINGS </span><span class="s4">= </span><span class="s5">5</span><span class="s4">;</span>
+
+    <span class="s3">final int </span><span class="s0">MINIMUM_STAR_NUMBER </span><span class="s4">= </span><span class="s5">1</span><span class="s4">;</span>
+    <span class="s3">final int </span><span class="s0">MAXIMUM_STAR_NUMBER </span><span class="s4">= </span><span class="s5">5</span><span class="s4">;</span>
+
+
+    <span class="s3">final int </span><span class="s0">SERVICES_ORDERED_BY_RATING_LENGTH </span><span class="s4">= </span><span class="s0">NUMBER_OF_RATINGS </span><span class="s4">+ </span><span class="s5">1</span><span class="s4">;</span>
+                     <span class="s6">//used + because the array starts at position 0</span>
+                    <span class="s6">// which is not used.</span>
+
+    <span class="s3">final int </span><span class="s0">SERVICES_MAP_INITIAL_CAPACITY </span><span class="s4">= </span><span class="s5">80</span><span class="s4">; </span><span class="s6">//I think more than 80 services in an area is unrealistic.</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns the service with that name.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">name Name of the student</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">ServiceDoesntExist Exception that happens when there's no service with that name in the area.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">the student with that name.</span>
+     <span class="s1">*/</span>
+    <span class="s0">Service getService</span><span class="s4">(</span><span class="s0">String name</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">ServiceDoesntExist</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Adds a new service to the area.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">type Type of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">latitude Latitude of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">longitude Longitude of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">price Price of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">value Value of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">name Name of the service.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidEatingPrice Exception that happens when the price given to an eating service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidLodgingPrice Exception that happens when the price given to a lodging service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidLeisurePrice Exception that happens when the price given to a leisure service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidDiscountPrice Exception that happens when the discount given to the service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidCapacity Exception that happens when the capacity given to the service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">ServiceAlreadyExists Exception that happens when there's already a service with that name in the area.</span>
+     <span class="s1">*/</span>
+    <span class="s3">void </span><span class="s0">addService</span><span class="s4">(</span><span class="s0">String type</span><span class="s4">, </span><span class="s3">long </span><span class="s0">latitude</span><span class="s4">,</span><span class="s3">long </span><span class="s0">longitude</span><span class="s4">,</span><span class="s3">int </span><span class="s0">price</span><span class="s4">,</span>
+                    <span class="s3">int </span><span class="s0">value</span><span class="s4">, </span><span class="s0">String name</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">InvalidEatingPrice</span><span class="s4">, </span><span class="s0">InvalidLodgingPrice</span><span class="s4">, </span><span class="s0">InvalidLeisurePrice</span><span class="s4">,</span>
+            <span class="s0">InvalidDiscountPrice</span><span class="s4">, </span><span class="s0">InvalidCapacity</span><span class="s4">,</span><span class="s0">ServiceAlreadyExists</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns the iterator of the services.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">the iterator of the services.</span>
+     <span class="s1">*/</span>
+    <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">getServicesIterator</span><span class="s4">();</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns the iterator of the occupants of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">serviceName Name of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">orderSymbol Symbol of the order which the students are going to be iterated.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">the iterator of the occupants of the service.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidOrderType Exception that happens when the order symbol is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">ServiceDoesntExist Exception that happens when there's no service with that name in the area.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">ServiceWithNoEntryControl Exception that happens when the service given doesn't control the entries of the students.</span>
+     <span class="s1">*/</span>
+    <span class="s0">TwoWayIterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyStudent</span><span class="s4">&gt; </span><span class="s0">getStudentsInServiceIterator</span><span class="s4">(</span><span class="s0">String serviceName</span><span class="s4">, </span><span class="s0">String orderSymbol</span><span class="s4">)</span>
+            <span class="s3">throws </span><span class="s0">InvalidOrderType</span><span class="s4">,</span><span class="s0">ServiceDoesntExist</span><span class="s4">,</span><span class="s0">ServiceWithNoEntryControl</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Throws an exception if the number of stars given is invalid.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">stars Number of stars given.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidRating Exception that happens when the number of stars given is invalid (isn't between 1 and 5).</span>
+     <span class="s1">*/</span>
+    <span class="s3">void </span><span class="s0">checkIfRatingIsInvalid</span><span class="s4">(</span><span class="s3">int </span><span class="s0">stars</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">InvalidRating</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Adds an evaluation to a service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">stars Rating(number of stars) given in the evaluation.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">serviceName Name of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">description Description of the evaluation.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidRating Exception that happens when the number of stars given is invalid (isn't between 1 and 5).</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">ServiceDoesntExist Exception that happens when there's no service with that name in the area.</span>
+     <span class="s1">*/</span>
+    <span class="s3">void </span><span class="s0">evaluateService</span><span class="s4">(</span><span class="s3">int </span><span class="s0">stars</span><span class="s4">, </span><span class="s0">String serviceName</span><span class="s4">, </span><span class="s0">String description</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">InvalidRating</span><span class="s4">,</span>
+            <span class="s0">ServiceDoesntExist</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns an iterator of iterators of the lists of every rating.</span>
+     <span class="s1">* Meaning that the iterator will iterate an iterator that will iterate the services with 5 star, then will iterate an iterator of 4-star services</span>
+     <span class="s1">* etc.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">an iterator of iterators of the lists of every rating.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">NoServicesYet Exception that happens when there are no services in the area yet.</span>
+     <span class="s1">*/</span>
+    <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">getRankingIterator</span><span class="s4">()</span><span class="s3">throws </span><span class="s0">NoServicesYet</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns a filtered iterator that only iterates services with the desired tag.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">tag Tag being checked.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">a filtered iterator that only iterates services with the desired tag.</span>
+     <span class="s1">*/</span>
+    <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">getServicesWithTagIterator</span><span class="s4">(</span><span class="s0">String tag</span><span class="s4">);</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Throws an exception if the service type is invalid.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">type Service type.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidServiceType Exception that happens when the type of the service is invalid.</span>
+     <span class="s1">*/</span>
+    <span class="s3">void </span><span class="s0">checkIfServiceTypeIsInvalid</span><span class="s4">(</span><span class="s0">String type</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">InvalidServiceType</span><span class="s4">;</span>
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns an iterator of the services of a certain rating and type closer to the student.</span>
+     <span class="s1">* Only the closest service is stored, unless there's a tie.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">type Type of the service.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">stars Number of stars of the service(rating).</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">student Student.</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">an iterator of the services of a certain rating and type closer to the student.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">InvalidServiceType Exception that happens when the type of the service is invalid.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">NoTypeServices Exception that happens when there's no services with that type in the area.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">NoTypeServicesWithThatRating Exception that happens when there's no service with that type with that rating.</span>
+     <span class="s1">*/</span>
+     <span class="s0">Iterator</span><span class="s4">&lt;? </span><span class="s3">extends </span><span class="s0">ReadOnlyService</span><span class="s4">&gt; </span><span class="s0">getRankedIterator</span><span class="s4">(</span><span class="s0">String type</span><span class="s4">, </span><span class="s3">int </span><span class="s0">stars</span><span class="s4">, </span><span class="s0">Student student</span><span class="s4">)</span>
+            <span class="s3">throws </span><span class="s0">InvalidServiceType</span><span class="s4">, </span><span class="s0">NoTypeServices</span><span class="s4">,</span><span class="s0">NoTypeServicesWithThatRating</span><span class="s4">;</span>
+
+
+
+    <span class="s1">/**</span>
+     <span class="s1">* Returns the most relevant service of a certain type, for a specific student.</span>
+     <span class="s1">* For thrifty students returns the less expensive service of that type(in case of a tie returns the first service inserted in the system).</span>
+     <span class="s1">* For the other students types, returns the service of that type that has better rating</span>
+     <span class="s1">* (in case of a tie returns the service with more time in this average).</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">student Student.</span>
+     <span class="s1">* </span><span class="s2">@param </span><span class="s1">type Type of the student</span>
+     <span class="s1">* </span><span class="s2">@return </span><span class="s1">the most relevant service of a certain type, for a specific student.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">StudentDoesntExist Exception that happens when there's no student with that name in the area.</span>
+     <span class="s1">* </span><span class="s2">@throws </span><span class="s1">NoTypeServices Exception that happens when there's no services with that type in the area.</span>
+     <span class="s1">*/</span>
+    <span class="s0">ReadOnlyService findMostRelevantService</span><span class="s4">(</span><span class="s0">Student student</span><span class="s4">, </span><span class="s0">String type</span><span class="s4">)</span><span class="s3">throws </span><span class="s0">StudentDoesntExist</span><span class="s4">,</span>
+            <span class="s0">NoTypeServices</span><span class="s4">;</span>
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

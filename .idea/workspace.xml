@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5ee24cb4-2908-4eda-b903-c46381ef8d7f" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/exportToHTML/Main.java.html" beforeDir="false" afterPath="$PROJECT_DIR$/exportToHTML/Main.java.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App/AppClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App/AppClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/AppServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/AppServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/AppServicesClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/AppServicesClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ReadOnlyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ReadOnlyService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Services/ServiceClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Services/ServiceClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Students.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Students/AppStudents.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Students/AppStudents.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Students/AppStudentsClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Students/AppStudentsClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Students/StudentsThatKeepVisited.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Students/StudentsThatKeepVisited.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Students/StudentsThatKeepVisitedClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Students/StudentsThatKeepVisitedClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dataStructures/AVLSortedMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/dataStructures/AVLSortedMap.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExportToHTMLSettings">
+    <option name="printScope" value="1" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$/exportToHTML" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Exception" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;viiceen1e&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/viiceen1e/Projeto_2_AED.git&quot;,
+    &quot;accountId&quot;: &quot;4de45e64-a70e-4a1d-976d-8e2f09d262aa&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
+  <component name="ProjectId" id="35LBBPVHlTGUGhBC8IIbXiqWK7t" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/vicen/IdeaProjects/Projeto_2_AED/src&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;onboarding.tips.debug.path&quot;: &quot;C:/Users/vicen/IdeaProjects/Projeto_2_AED/src/Main.java&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\vicen\IdeaProjects\Projeto_2_AED\src" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\vicen\IdeaProjects\Projeto_2_AED\src" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5ee24cb4-2908-4eda-b903-c46381ef8d7f" name="Changes" comment="" />
+      <created>1762879335936</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1762879335936</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Services/ServiceClass.java</url>
+          <line>91</line>
+          <properties class="Services.ServiceClass" method="updateRating">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/dataStructures/DoublyLinkedListHashMap.java</url>
+          <line>163</line>
+          <properties class="dataStructures.DoublyLinkedListHashMap" method="writeObject">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="20" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/Main.java</url>
+          <line>202</line>
+          <properties class="Main" method="processServices">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

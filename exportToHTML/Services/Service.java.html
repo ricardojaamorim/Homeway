@@ -1,0 +1,78 @@
+<html>
+<head>
+<title>Service.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Service.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+
+<span class="s0">/**</span>
+ <span class="s0">* Interface of all services with full access.</span>
+ <span class="s0">*/</span>
+<span class="s3">public interface </span><span class="s2">Service </span><span class="s3">extends </span><span class="s2">ReadOnlyService </span><span class="s4">{</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constants.</span>
+     <span class="s0">*/</span>
+    <span class="s3">final int </span><span class="s2">INITIAL_SERVICE_RATING </span><span class="s4">= </span><span class="s5">4</span><span class="s4">;</span>
+    <span class="s3">final int </span><span class="s2">INITIAL_RATINGS </span><span class="s4">= </span><span class="s5">1</span><span class="s4">;  </span><span class="s6">//The service starts with a rating(1);</span>
+    <span class="s3">final int </span><span class="s2">THIS_EVALUATION </span><span class="s4">= </span><span class="s5">1 </span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Checks if a service is equal to others.</span>
+     <span class="s0">* The criterion is if they have the same name.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">serv service being compared with this service</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if is equal , false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">boolean </span><span class="s2">equals</span><span class="s4">(</span><span class="s2">Object serv</span><span class="s4">);</span>
+
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Adds a review to the service, and updates the overall rating of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">stars Number of stars given in the evaluation.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">description Review given in the evaluation.</span>
+     <span class="s0">*/</span>
+    <span class="s3">void </span><span class="s2">addReview</span><span class="s4">(</span><span class="s3">int </span><span class="s2">stars</span><span class="s4">, </span><span class="s2">String description</span><span class="s4">);</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns true if the service has the tag being checked.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if the service has the tag being checked,false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">boolean </span><span class="s2">hasTag</span><span class="s4">(</span><span class="s2">String tag</span><span class="s4">);</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Calculates the Manhattan Distance between this service and other service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">service Service that is being calculated the distance between him and this service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the Manhattan Distance between this service and other service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">long </span><span class="s2">getManhattanDistance</span><span class="s4">(</span><span class="s2">Service service</span><span class="s4">);</span>
+
+
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

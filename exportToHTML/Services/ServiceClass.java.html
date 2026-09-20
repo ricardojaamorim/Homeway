@@ -1,0 +1,220 @@
+<html>
+<head>
+<title>ServiceClass.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+.s6 { color: #7a7e85;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ServiceClass.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+
+<span class="s3">import </span><span class="s2">dataStructures</span><span class="s4">.</span><span class="s2">SinglyLinkedList</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s2">dataStructures</span><span class="s4">.</span><span class="s2">Iterator</span><span class="s4">;</span>
+<span class="s3">import </span><span class="s2">dataStructures</span><span class="s4">.</span><span class="s2">List</span><span class="s4">;</span>
+
+<span class="s0">/**</span>
+ <span class="s0">* Class of all services.</span>
+ <span class="s0">*/</span>
+<span class="s3">abstract class </span><span class="s2">ServiceClass </span><span class="s3">implements </span><span class="s2">Service </span><span class="s4">{</span>
+
+    <span class="s3">private static final long </span><span class="s2">serialVersionUID </span><span class="s4">= </span><span class="s5">1L</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Type of the service(needed in the output to know the type of the service).</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final </span><span class="s2">String type</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Name of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final </span><span class="s2">String name</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Latitude of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final long </span><span class="s2">latitude</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Longitude of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final long </span><span class="s2">longitude</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Price of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final int </span><span class="s2">price</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Average rating of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private float </span><span class="s2">averageRating</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* List of the service reviews.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final </span><span class="s2">List</span><span class="s4">&lt;</span><span class="s2">Review</span><span class="s4">&gt; </span><span class="s2">reviews</span><span class="s4">;</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor of ServiceClass.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">type Type of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">latitude Latitude of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">longitude Longitude of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">price Price of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">name Name of the service.</span>
+     <span class="s0">*/</span>
+    <span class="s3">protected </span><span class="s2">ServiceClass</span><span class="s4">(</span><span class="s2">String type</span><span class="s4">, </span><span class="s2">String name</span><span class="s4">, </span><span class="s3">long </span><span class="s2">latitude</span><span class="s4">, </span><span class="s3">long </span><span class="s2">longitude</span><span class="s4">,</span>
+                           <span class="s3">int </span><span class="s2">price</span><span class="s4">) {</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">type </span><span class="s4">= </span><span class="s2">type</span><span class="s4">;</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">name </span><span class="s4">= </span><span class="s2">name</span><span class="s4">;</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">latitude </span><span class="s4">= </span><span class="s2">latitude</span><span class="s4">;</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">longitude </span><span class="s4">= </span><span class="s2">longitude</span><span class="s4">;</span>
+        <span class="s3">this</span><span class="s4">.</span><span class="s2">price </span><span class="s4">= </span><span class="s2">price</span><span class="s4">;</span>
+        <span class="s2">averageRating </span><span class="s4">= </span><span class="s2">INITIAL_SERVICE_RATING</span><span class="s4">;</span>
+        <span class="s2">reviews </span><span class="s4">= </span><span class="s3">new </span><span class="s2">SinglyLinkedList</span><span class="s4">&lt;&gt;();</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public boolean </span><span class="s2">equals</span><span class="s4">(</span><span class="s2">Object serv</span><span class="s4">){</span>
+       <span class="s2">Service service </span><span class="s4">= (</span><span class="s2">Service</span><span class="s4">) </span><span class="s2">serv</span><span class="s4">;</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s2">service </span><span class="s4">== </span><span class="s3">null </span><span class="s4">|| </span><span class="s2">service</span><span class="s4">.</span><span class="s2">getName</span><span class="s4">() == </span><span class="s3">null</span><span class="s4">)</span>
+            <span class="s3">return false</span><span class="s4">;</span>
+
+        <span class="s3">return </span><span class="s2">name</span><span class="s4">.</span><span class="s2">equalsIgnoreCase</span><span class="s4">(</span><span class="s2">service</span><span class="s4">.</span><span class="s2">getName</span><span class="s4">());</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Updates the overall rating of the service.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">newRating Number of stars given in the evaluation.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private void </span><span class="s2">updateRating</span><span class="s4">(</span><span class="s3">int </span><span class="s2">newRating</span><span class="s4">){</span>
+       <span class="s2">averageRating </span><span class="s4">= (</span><span class="s2">averageRating </span><span class="s4">* (</span><span class="s2">getEvaluationCount</span><span class="s4">() + </span><span class="s2">INITIAL_RATINGS</span><span class="s4">) + </span><span class="s2">newRating</span><span class="s4">)</span>
+        <span class="s4">/ (</span><span class="s2">getEvaluationCount</span><span class="s4">() + </span><span class="s2">INITIAL_RATINGS </span><span class="s4">+ </span><span class="s2">THIS_EVALUATION</span><span class="s4">);</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public void </span><span class="s2">addReview</span><span class="s4">(</span><span class="s3">int </span><span class="s2">stars</span><span class="s4">, </span><span class="s2">String description</span><span class="s4">){</span>
+        <span class="s2">updateRating</span><span class="s4">(</span><span class="s2">stars</span><span class="s4">);</span>
+        <span class="s2">Review review </span><span class="s4">= </span><span class="s3">new </span><span class="s2">ReviewClass</span><span class="s4">(</span><span class="s2">stars</span><span class="s4">,</span><span class="s2">description</span><span class="s4">);</span>
+        <span class="s2">reviews</span><span class="s4">.</span><span class="s2">addFirst</span><span class="s4">(</span><span class="s2">review</span><span class="s4">); </span><span class="s6">//review order doesn't matter and doing this way it can add with a O(1) time complexity,</span>
+    <span class="s4">}                             </span><span class="s6">//using a list (SinglyLinkedList) with less space complexity.</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns true if the service doesn't have reviews.</span>
+     <span class="s0">* Having this as a method might be usefully for future updates.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if the service doesn't have reviews, false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private boolean </span><span class="s2">doesntHaveReviews</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">reviews</span><span class="s4">.</span><span class="s2">isEmpty</span><span class="s4">();</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public boolean </span><span class="s2">hasTag</span><span class="s4">(</span><span class="s2">String tag</span><span class="s4">){</span>
+        <span class="s3">if</span><span class="s4">(</span><span class="s2">doesntHaveReviews</span><span class="s4">())</span>
+            <span class="s3">return false</span><span class="s4">;</span>
+
+        <span class="s2">Iterator</span><span class="s4">&lt;</span><span class="s2">Review</span><span class="s4">&gt; </span><span class="s2">it </span><span class="s4">= </span><span class="s2">reviews</span><span class="s4">.</span><span class="s2">iterator</span><span class="s4">();</span>
+        <span class="s3">while</span><span class="s4">(</span><span class="s2">it</span><span class="s4">.</span><span class="s2">hasNext</span><span class="s4">()){</span>
+            <span class="s3">if</span><span class="s4">(</span><span class="s2">it</span><span class="s4">.</span><span class="s2">next</span><span class="s4">().</span><span class="s2">kmpSearch</span><span class="s4">(</span><span class="s2">tag</span><span class="s4">.</span><span class="s2">toCharArray</span><span class="s4">()))</span>
+                <span class="s3">return true</span><span class="s4">;</span>
+        <span class="s4">}</span>
+        <span class="s3">return false</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public long </span><span class="s2">getManhattanDistance</span><span class="s4">(</span><span class="s2">Service service</span><span class="s4">){</span>
+        <span class="s3">return </span><span class="s2">Math</span><span class="s4">.</span><span class="s2">abs</span><span class="s4">(</span><span class="s2">latitude </span><span class="s4">- </span><span class="s2">service</span><span class="s4">.</span><span class="s2">getLatitude</span><span class="s4">())</span>
+                <span class="s4">+ </span><span class="s2">Math</span><span class="s4">.</span><span class="s2">abs</span><span class="s4">(</span><span class="s2">longitude </span><span class="s4">- </span><span class="s2">service</span><span class="s4">.</span><span class="s2">getLongitude</span><span class="s4">());</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public </span><span class="s2">String getType</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">type</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public </span><span class="s2">String getName</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">name</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public long </span><span class="s2">getLatitude</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">latitude</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public long </span><span class="s2">getLongitude</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">longitude</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public int </span><span class="s2">getPrice</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">price</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public int </span><span class="s2">getAverageRating</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">Math</span><span class="s4">.</span><span class="s2">round</span><span class="s4">(</span><span class="s2">averageRating</span><span class="s4">);</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public int </span><span class="s2">getEvaluationCount</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">reviews</span><span class="s4">.</span><span class="s2">size</span><span class="s4">();</span>
+    <span class="s4">}</span>
+
+
+
+    <span class="s2">@Override</span>
+    <span class="s3">public </span><span class="s2">Iterator</span><span class="s4">&lt;</span><span class="s2">Review</span><span class="s4">&gt; </span><span class="s2">getReviewsIterator</span><span class="s4">(){</span>
+        <span class="s3">return </span><span class="s2">reviews</span><span class="s4">.</span><span class="s2">iterator</span><span class="s4">();</span>
+    <span class="s4">}</span>
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

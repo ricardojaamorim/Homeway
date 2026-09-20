@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>ServicesTypes.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #2aacb8;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+ServicesTypes.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+<span class="s0">/**</span>
+ <span class="s0">* Enum that contains all types of services.</span>
+ <span class="s0">* the number indicates their index in the cheaperServiceByType array.</span>
+ <span class="s0">*/</span>
+<span class="s3">public enum </span><span class="s2">ServicesTypes </span><span class="s4">{</span>
+    <span class="s2">EATING</span><span class="s4">(</span><span class="s5">0</span><span class="s4">),</span>
+    <span class="s2">LODGING</span><span class="s4">(</span><span class="s5">1</span><span class="s4">),</span>
+    <span class="s2">LEISURE</span><span class="s4">(</span><span class="s5">2</span><span class="s4">);</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* index of the type in the cheaperServiceByType array.</span>
+     <span class="s0">*/</span>
+    <span class="s3">private final int </span><span class="s2">index</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constructor of the ServicesTypes enum.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">index index of the type in the cheaperServiceByType array.</span>
+     <span class="s0">*/</span>
+     <span class="s2">ServicesTypes</span><span class="s4">(</span><span class="s3">int </span><span class="s2">index</span><span class="s4">){</span>
+         <span class="s3">this</span><span class="s4">.</span><span class="s2">index </span><span class="s4">= </span><span class="s2">index</span><span class="s4">;</span>
+     <span class="s4">}</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns the index of the type in the cheaperServiceByType array.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the index of the type in the cheaperServiceByType array.</span>
+     <span class="s0">*/</span>
+     <span class="s3">public int </span><span class="s2">getIndex</span><span class="s4">(){</span>
+         <span class="s3">return </span><span class="s2">index</span><span class="s4">;</span>
+     <span class="s4">}</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Checks if the type of the service is invalid.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">type type of the service.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if the type is invalid, false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">public static boolean </span><span class="s2">invalidServiceType</span><span class="s4">(</span><span class="s2">String type</span><span class="s4">) {</span>
+        <span class="s3">for</span><span class="s4">(</span><span class="s2">ServicesTypes serviceType </span><span class="s4">: </span><span class="s2">ServicesTypes</span><span class="s4">.</span><span class="s2">values</span><span class="s4">())</span>
+            <span class="s3">if</span><span class="s4">(</span><span class="s2">serviceType</span><span class="s4">.</span><span class="s2">name</span><span class="s4">().</span><span class="s2">equalsIgnoreCase</span><span class="s4">(</span><span class="s2">type</span><span class="s4">) )</span>
+                <span class="s3">return false</span><span class="s4">;</span>
+        <span class="s3">return true</span><span class="s4">;</span>
+    <span class="s4">}</span>
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>

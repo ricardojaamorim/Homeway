@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>Review.java</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #5f826b; font-style: italic;}
+.s1 { color: #67a37c; font-style: italic;}
+.s2 { color: #bcbec4;}
+.s3 { color: #cf8e6d;}
+.s4 { color: #bcbec4;}
+.s5 { color: #7a7e85;}
+.s6 { color: #6aab73;}
+</style>
+</head>
+<body bgcolor="#1e1f22">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Review.java</font>
+</center></td></tr></table>
+<pre><span class="s0">/**</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Vicente Santos 71471 vr.santos@campus.fct.unl.pt</span>
+ <span class="s0">* </span><span class="s1">@author </span><span class="s0">Ricardo Amorim 71365 rja.amorim@campus.fct.unl.pt</span>
+ <span class="s0">*/</span>
+
+
+<span class="s3">package </span><span class="s2">Services</span><span class="s4">;</span>
+
+<span class="s3">import </span><span class="s2">java</span><span class="s4">.</span><span class="s2">io</span><span class="s4">.</span><span class="s2">Serializable</span><span class="s4">;</span>
+
+<span class="s0">/**</span>
+ <span class="s0">* Interface of the service reviews.</span>
+ <span class="s0">*/</span>
+<span class="s3">interface </span><span class="s2">Review </span><span class="s3">extends </span><span class="s2">Serializable </span><span class="s4">{ </span><span class="s5">//package private.</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Constants.</span>
+     <span class="s0">*/</span>
+      <span class="s3">final </span><span class="s2">String EMPTY_SPACE </span><span class="s4">= </span><span class="s6">&quot; &quot;</span><span class="s4">;</span>
+
+    <span class="s0">/**</span>
+     <span class="s0">* Does a Knuth-Morris-Pratt(KMP) search, to look if the review has the tag.</span>
+     <span class="s0">* </span><span class="s1">@param </span><span class="s0">pattern tag.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">true if it does, false otherwise.</span>
+     <span class="s0">*/</span>
+    <span class="s3">boolean </span><span class="s2">kmpSearch</span><span class="s4">(</span><span class="s3">char</span><span class="s4">[] </span><span class="s2">pattern</span><span class="s4">);</span>
+
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns the rating (number of stars) of the review.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the rating (number of stars) of the review.</span>
+     <span class="s0">*/</span>
+    <span class="s3">int </span><span class="s2">getStars</span><span class="s4">();</span>
+
+
+    <span class="s0">/**</span>
+     <span class="s0">* Returns the description of the review.</span>
+     <span class="s0">* </span><span class="s1">@return </span><span class="s0">the description of the review.</span>
+     <span class="s0">*/</span>
+    <span class="s2">String getDescription</span><span class="s4">();</span>
+
+<span class="s4">}</span>
+</pre>
+</body>
+</html>
